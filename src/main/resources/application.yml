@@ -1,1 +1,3 @@
-spring.application.name=civicid
+spring:
+  application:
+    name: civicid
