@@ -83,6 +83,10 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <annotationProcessorPaths>
+                        <!-- FIX: annotationProcessorPaths requires an explicit version.
+                             Unlike regular dependencies, it does not inherit versions
+                             from spring-boot-starter-parent, so 1.18.32 is specified
+                             here to match the version bundled with Spring Boot 3.2.5. -->
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
@@ -93,4 +97,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
