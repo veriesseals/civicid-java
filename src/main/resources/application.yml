@@ -1,3 +1,36 @@
 spring:
+
+  # Spring Boot application configuration for the CivicID project. This configuration sets up an in-memory H2 database, enables the H2 console for debugging, and configures JPA to automatically update the database schema and show SQL statements in the logs.
+  # ---------------------------------------------
   application:
     name: civicid
+
+  # DataSource configuration for the H2 in-memory database. The URL specifies that the database is named "civicid". The driver class name is set to the H2 driver, and the default username and password are used.
+  # ---------------------------------------------
+  datasource:
+    url: jdbc:h2:mem:civicid
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  # H2 console configuration. The console is enabled and can be accessed at the path "/h2-console". This allows developers to interact with the in-memory database through a web interface for debugging and testing purposes.
+  # ---------------------------------------------
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  # JPA configuration for Hibernate. The "ddl-auto" property is set to "update", which means that Hibernate will automatically update the database schema based on the entity classes. The "show-sql" property is enabled to log SQL statements, and the "format_sql" property is set to true to format the SQL output for better readability in the logs.
+  # ---------------------------------------------
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+# Server configuration. The application will run on port 8080, which is the default port for Spring Boot applications. This can be changed if needed by modifying the value of "server.port".
+# ---------------------------------------------
+server:
+  port: 8080
