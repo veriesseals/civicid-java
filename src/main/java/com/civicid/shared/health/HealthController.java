@@ -1,12 +1,12 @@
-package com.civicid;
+package com.civicid.shared.health;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class TestController {
+public class HealthController {
     
-    @GetMapping("/")
+    @GetMapping("/api/health")
     public String home() {
         return "CivicID API is running!";
     }
