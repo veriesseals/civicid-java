@@ -32,8 +32,16 @@ spring:
         format_sql: true
 
 
+  # JWT Configuration
+  # secret: must be at least 256 bits (32 chars) for HS256 algorithm
+  # expiration: token lifetime in milliseconds (86400000 = 24 hours)
+  # ---------------------------------------------
+  jwt:
+    secret: civicid-super-secret-key-for-jwt-signing-must-be-long-enough
+    expiration: 86400000
 
 # Server configuration. The application will run on port 8080, which is the default port for Spring Boot applications. This can be changed if needed by modifying the value of "server.port".
 # ---------------------------------------------
 server:
   port: 8080
+
