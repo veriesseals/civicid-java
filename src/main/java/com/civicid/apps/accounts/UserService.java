@@ -25,7 +25,5 @@ public class UserService {
         user.setMfaEnabled(false);
 
         return userRepository.save(user);
-
     }
-
 }
