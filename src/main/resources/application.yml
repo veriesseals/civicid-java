@@ -10,8 +10,8 @@ spring:
   datasource:
     url: jdbc:h2:mem:civicid
     driver-class-name: org.h2.Driver
-    username: sa
-    password:
+    username: admin
+    password: Tyaanah201!
 
   # H2 console configuration. The console is enabled and can be accessed at the path "/h2-console". This allows developers to interact with the in-memory database through a web interface for debugging and testing purposes.
   # ---------------------------------------------
@@ -26,11 +26,22 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+    open-in-view: false
     properties:
       hibernate:
         format_sql: true
+
+
+  # JWT Configuration
+  # secret: must be at least 256 bits (32 chars) for HS256 algorithm
+  # expiration: token lifetime in milliseconds (86400000 = 24 hours)
+  # ---------------------------------------------
+  jwt:
+    secret: civicid-super-secret-key-for-jwt-signing-must-be-long-enough
+    expiration: 86400000
 
 # Server configuration. The application will run on port 8080, which is the default port for Spring Boot applications. This can be changed if needed by modifying the value of "server.port".
 # ---------------------------------------------
 server:
   port: 8080
+
