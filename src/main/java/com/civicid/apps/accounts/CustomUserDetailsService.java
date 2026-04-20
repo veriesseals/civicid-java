@@ -1,3 +1,5 @@
+// Spring Security doesn't know anything about your User entity by default. It works with its own UserDetails interface. You need to bridge the gap by implementing UserDetailsService — Spring Security calls this when it needs to load a user by username during authentication.
+
 package com.civicid.apps.accounts;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
