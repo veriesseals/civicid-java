@@ -1,17 +1,17 @@
 package com.civicid.shared.security;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
+import java.util.Date;
+import java.util.HashMap;
+
+import javax.crypto.SecretKey;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.security.Key;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
 
-import javax.crypto.SecretKey;
 
 // This is the core JWT engine. It handles three things — generating a token when a user logs in, extracting the username from a token on subsequent requests, and validating that a token hasn't expired or been tampered with.
 // JwtUtil is the core token engine.
@@ -40,11 +40,23 @@ public class JwtUtil {
     }
 
     // Generate a signed JWT for a given username.
+    // Called by AuthController after successful login.
     // The token payload (claims) includes:
     //   sub  — the username (subject)
     //   iat  — issued-at timestamp
     //   exp  — expiration timestamp
     // -------------------------------------------------------
+    public String generateToken(String username) {
+        Map<String, Object> claims = new HashMap<>();
+        return Jwts.builder()
+            .claims(claims)
+            .subject(username)
+            .issuedAt(new Date())
+            .expiration(new Date(System.currentTimeMillis() + expiration))
+            .signWith(getSigningKey())
+            .compact();
+    }
+
     private Claims extractAllClaims(String token) {
         return Jwts.parser()
             .verifyWith(getSigningKey())
@@ -52,6 +64,7 @@ public class JwtUtil {
             .parseSignedClaims(token)
             .getPayload();
     }
+
 
     // Pull the username (subject) out of the token claims.
     // -------------------------------------------------------
