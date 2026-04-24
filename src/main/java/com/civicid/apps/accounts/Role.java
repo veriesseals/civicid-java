@@ -9,5 +9,6 @@ public enum Role {
     ELECTIONS,
     STATE_DEPT,
     SSA,
-    IMMIGRATION
+    IMMIGRATION;
+    public String name;
 }

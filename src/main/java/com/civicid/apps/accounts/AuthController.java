@@ -56,8 +56,35 @@ public class AuthController {
         String token = jwtUtil.generateToken(user.getUsername());
 
         return ResponseEntity.ok(
-                new LoginResponse(token, user.getUsername(), user.getRole().name())
+                new LoginResponse(token, user.getUsername(), user.getRole().name)
         );
     }
 
+    @GetMapping("/me")
+    public ResponseEntity<?> getAuthenticatedUser(Authentication authentication) {
+
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("error", "Not authenticated"));
+
+        }
+        User user = userRepository.findByUsername(authentication.getName())
+                .orElse(null);
+
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(Map.of("error", "User not found"));
+        }
+
+        return ResponseEntity.ok(Map.of(
+                "id", user.getID(),
+                "username", user.getUsername(),
+                "email", user.getEmail(),
+                "role", user.getRole(),
+                "department", get.Department() != null ? user.getDepartment() : "",
+                "isActive", user.getIsActive(),
+                "mfaEnabled", user.getMfaEnabled()
+        ));
+
+    }
 }
