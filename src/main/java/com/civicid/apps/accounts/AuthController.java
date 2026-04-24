@@ -56,7 +56,7 @@ public class AuthController {
         String token = jwtUtil.generateToken(user.getUsername());
 
         return ResponseEntity.ok(
-                new LoginResponse(token, user.getUsername(), user.getRole().name)
+                new LoginResponse(token, user.getUsername(), user.getRole().name(), "Login successful")
         );
     }
 
@@ -77,11 +77,11 @@ public class AuthController {
         }
 
         return ResponseEntity.ok(Map.of(
-                "id", user.getID(),
+                "id", user.getId(),
                 "username", user.getUsername(),
                 "email", user.getEmail(),
                 "role", user.getRole(),
-                "department", get.Department() != null ? user.getDepartment() : "",
+                "department", user.getDepartment() != null ? user.getDepartment() : "",
                 "isActive", user.getIsActive(),
                 "mfaEnabled", user.getMfaEnabled()
         ));

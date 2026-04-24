@@ -42,6 +42,6 @@ server:
   # secret: must be at least 256 bits (32 chars) for HS256 algorithm
   # expiration: token lifetime in milliseconds (86400000 = 24 hours)
   # ---------------------------------------------
-  jwt:
-    secret: civicid-super-secret-key-for-jwt-signing-must-be-long-enough
-    expiration: 86400000
+jwt:
+  secret: civicid-super-secret-key-for-jwt-signing-must-be-long-enough
+  expiration: 86400000
