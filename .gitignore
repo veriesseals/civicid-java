@@ -31,3 +31,4 @@ build/
 
 ### VS Code ###
 .vscode/
+.claude/worktrees/peaceful-turing-d001c4
