@@ -10,6 +10,12 @@ import java.time.LocalDateTime;
 // Think of this as the "hub" — everything else is a "spoke".
 // -------------------------------------------------------
 
+//This is a database table called persons. Every row is one real human being in the system. The isDeceased flag will
+// automatically flip to true later when a death record is filed — no manual updates needed. The ssn field is unique
+// so no two people can share one. The createdAt and updatedAt timestamps are managed automatically by JPA —
+// you never touch them manually.
+// -------------------------------------------------------
+
 @Entity
 @Table(name = "persons")
 public class Person {
