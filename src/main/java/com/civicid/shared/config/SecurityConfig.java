@@ -45,8 +45,9 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
                         "/api/health",
-                        "/h2-console/**",
-                        "/api/health/**"
+                        "/api/health/**",
+                        "/api/auth/login",
+                        "/h2-console/**"
                 ).permitAll()
                 .anyRequest().authenticated()
             )
