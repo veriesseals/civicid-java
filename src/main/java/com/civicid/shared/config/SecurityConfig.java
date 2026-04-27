@@ -1,5 +1,6 @@
 package com.civicid.shared.config;
 
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import com.civicid.apps.accounts.CustomUserDetailsService;
 import com.civicid.shared.security.JwtFilter;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 
     private final JwtFilter jwtFilter;
