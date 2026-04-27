@@ -1,7 +1,5 @@
 package com.civicid.apps.persons;
 
-import com.civicid.apps.accounts.dto.PersonRequest;
-import com.civicid.apps.accounts.dto.PersonResponse;
 import com.civicid.apps.persons.dto.PersonRequest;
 import com.civicid.apps.persons.dto.PersonResponse;
 import jakarta.validation.Valid;

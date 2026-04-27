@@ -1,4 +1,4 @@
-package com.civicid.apps.accounts.dto;
+package com.civicid.apps.persons.dto;
 
 import com.civicid.apps.persons.Person;
 import java.time.LocalDate;
