@@ -1,8 +1,9 @@
 package com.civicid.apps.persons;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 
 // PersonRepository is your database access layer for Person records.
 // By extending JpaRepository, Spring automatically gives you:
@@ -22,7 +23,7 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
     // Search by last name — useful for registrar lookups.
     // Returns a list because multiple people can share a last name.
     // -------------------------------------------------------
-    List<Person> findByLastNameIgnoreCase(String lastName);
+    List<Person> findByLastNameContainingIgnoreCase(String lastName);
 
     // Search by first AND last name together.
     // -------------------------------------------------------
