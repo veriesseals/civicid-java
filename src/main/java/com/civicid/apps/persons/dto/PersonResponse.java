@@ -1,8 +1,9 @@
 package com.civicid.apps.persons.dto;
 
-import com.civicid.apps.persons.Person;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import com.civicid.apps.persons.Person;
 
 //PersonRequest enforces input rules before anything hits the database. The SSN regex ^\d{3}-\d{2}-\d{4}$ means if someone sends "123456789" without dashes, the API rejects it immediately with a clear error message. Same with zip codes. And @Past on dateOfBirth means you can't register someone born tomorrow — caught automatically.
 //PersonResponse has a maskSsn() method baked right in. Every time you return a person, the SSN automatically becomes ***-**-6789. The caller never sees the full SSN through this response. Later when we build the law enforcement app, we'll go even further and strip SSN entirely from their response.
@@ -39,7 +40,7 @@ public class PersonResponse {
         response.firstName = person.getFirstName();
         response.lastName = person.getLastName();
         response.dateOfBirth = person.getDateOfBirth();
-        response.ssn = person.getSsn();
+        response.ssn = maskSsn(person.getSsn());
         response.gender = person.getGender();
         response.address = person.getAddress();
         response.city = person.getCity();
