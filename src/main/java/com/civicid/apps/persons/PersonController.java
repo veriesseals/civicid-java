@@ -1,15 +1,24 @@
 package com.civicid.apps.persons;
 
-import com.civicid.apps.persons.dto.PersonRequest;
-import com.civicid.apps.persons.dto.PersonResponse;
-import jakarta.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import com.civicid.apps.persons.dto.PersonRequest;
+import com.civicid.apps.persons.dto.PersonResponse;
+
+import jakarta.validation.Valid;
 
 // @PreAuthorize is role enforcement at the method level. Each endpoint declares exactly which roles are allowed —
 // anyone else gets a 403 Forbidden automatically. No if-statements, no manual role checks in the code.
@@ -62,12 +71,11 @@ public class PersonController {
     public ResponseEntity<List<PersonResponse>> getAllPersons() {
 
         List<Person> persons = personService.getAllPersons();
-        return ResponseEntity.ok(persons
+        return ResponseEntity.ok(persons          // ← returns here
                 .stream()
                 .map(PersonResponse::from)
                 .collect(Collectors.toList()));
 
-        return ResponseEntity.ok(responses);
     }
 
     // GET /api/persons/{id}
@@ -92,24 +100,23 @@ public class PersonController {
             @RequestParam(required = false) String firstName,
             @RequestParam(required = false) String lastName) {
 
+        if (firstName == null && lastName == null) {
+            return ResponseEntity.ok(List.of());
+        }
+
         List<Person> results;
 
         if (firstName != null && lastName != null) {
             results = personService.searchByName(firstName, lastName);
-        } else if (lastName != null) {
-            results = personService.searchByLastName(lastName);
         } else {
-            // No search params provided — return empty list
-            // rather than dumping the entire database
-            // -------------------------------------------------------
-            return ResponseEntity.ok(List.of());
+            results = personService.searchByLastName(lastName);
         }
 
-        List<PersonResponse> responses = results.stream()
-                .map(PersonResponse::from)
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok(responses);
+        return ResponseEntity.ok(
+                results.stream()
+                        .map(PersonResponse::from)
+                        .collect(Collectors.toList())
+        );
     }
 
     // PUT /api/persons/{id}
