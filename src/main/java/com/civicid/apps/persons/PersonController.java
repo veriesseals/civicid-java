@@ -3,6 +3,7 @@ package com.civicid.apps.persons;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.civicid.apps.audit.AuditService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -38,9 +39,11 @@ import jakarta.validation.Valid;
 public class PersonController {
 
     private final PersonService personService;
+    private final AuditService auditService;
 
     public PersonController(PersonService personService) {
         this.personService = personService;
+        this.auditService = new AuditService(null);
     }
 
     // POST /api/persons
@@ -56,6 +59,8 @@ public class PersonController {
         Person person = mapRequestToPerson(request);
 
         Person saved = personService.createPerson(person);
+        auditService.log("CREATE_PERSON", saved.getId(), "Person created: " + saved.getFirstName() + " " +
+                saved.getLastName());
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
