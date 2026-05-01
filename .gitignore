@@ -1,10 +1,22 @@
 HELP.md
 target/
 .mvn/wrapper/maven-wrapper.jar
+
+# Keep nested build/target folders out
 !**/src/main/**/target/
 !**/src/test/**/target/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
 
-### STS ###
+# IDEs
+.idea/
+*.iws
+*.iml
+*.ipr
+.vscode/
+
+# STS / Eclipse
 .apt_generated
 .classpath
 .factorypath
@@ -13,36 +25,22 @@ target/
 .springBeans
 .sts4-cache
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
-### NetBeans ###
+# NetBeans
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
 
-### VS Code ###
-.vscode/
-.claude/worktrees/peaceful-turing-d001c4
-.claude/worktrees/peaceful-turing-d001c4
-.claude
-# Local AI/tooling files
-.claude/
-
-# macOS files
+# macOS
 .DS_Store
 **/.DS_Store
 
-# Postman
+# Local AI/tooling
+.claude/
+
+# Postman local files
+.postman/
 postman/
 *.postman_collection.json
 *.postman_environment.json
-
