@@ -34,3 +34,10 @@ build/
 .claude/worktrees/peaceful-turing-d001c4
 .claude/worktrees/peaceful-turing-d001c4
 .claude
+# Local AI/tooling files
+.claude/
+
+# macOS files
+.DS_Store
+**/.DS_Store
+
