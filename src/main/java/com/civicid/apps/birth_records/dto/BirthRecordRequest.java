@@ -43,7 +43,7 @@ public class BirthRecordRequest {
         this.certificateNumber = certificateNumber;
     }
 
-    public String getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 

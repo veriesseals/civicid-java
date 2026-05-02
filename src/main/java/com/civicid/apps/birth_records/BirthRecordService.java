@@ -30,7 +30,7 @@ public class BirthRecordService {
     private final PersonService personService;
     private final AuditService auditService;
 
-    public BirthRecordService(BirthRecordRepository, birthRecordRepository, PersonService personService, AuditService auditService, BirthRecordRepository birthRecordRepository) {
+    public BirthRecordService(BirthRecordRepository birthRecordRepository, PersonService personService, AuditService auditService) {
         this.birthRecordRepository = birthRecordRepository;
         this.personService = personService;
         this.auditService = auditService;
