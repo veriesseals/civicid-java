@@ -52,7 +52,7 @@ public class BirthRecordController {
     @PreAuthorize("hasAnyRole('SUPER_ADMIN', 'REGISTRAR', 'AUDITOR')")
     public ResponseEntity<List<BirthRecordResponse>> getAllBirthRecords() {
 
-        List<BirthRecordResponse> records = birthRecordService.getAllBirthRecords()
+        List<BirthRecordResponse> responses = birthRecordService.getAllBirthRecords()
                 .stream()
                 .map(BirthRecordResponse::from)
                 .collect(Collectors.toList());
