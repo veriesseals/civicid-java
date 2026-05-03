@@ -58,55 +58,87 @@ public class BirthRecordResponse {
     // --- Getters ---
 
     public Long getId() {
+
         return id;
     }
 
     public Long getPersonId() {
+
         return personId;
     }
+
     public String getPersonFirstName() {
+
         return personFirstName;
     }
+
     public String getPersonLastName() {
+
         return personLastName;
     }
+
     public String getCertificateNumber() {
+
         return certificateNumber;
     }
+
     public LocalDate getDateOfBirth() {
+
         return dateOfBirth;
     }
+
     public String getCityOfBirth() {
+
         return cityOfBirth;
     }
+
     public String getStateOfBirth() {
+
         return stateOfBirth;
     }
+
     public String getCountryOfBirth() {
+
         return countryOfBirth;
     }
+
     public String getMotherFirstName() {
+
         return motherFirstName;
     }
+
     public String getMotherLastName() {
+
         return motherLastName;
     }
+
     public String getFatherFirstName() {
+
         return fatherFirstName;
     }
+
     public String getFatherLastName() {
+
         return fatherLastName;
     }
+
     public String getBirthFacility() {
+
         return birthFacility;
     }
+
     public String getFiledBy() {
+
         return filedBy;
     }
+
     public LocalDateTime getCreatedAt() {
+
         return createdAt;
     }
+
     public LocalDateTime getUpdatedAt() {
+
         return updatedAt;
     }
 

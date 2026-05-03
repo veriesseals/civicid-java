@@ -2,14 +2,8 @@ package com.civicid.apps.birth_records;
 
 import com.civicid.apps.persons.Person;
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
-// This is the first entity that creates a relationship between two tables. The @ManyToOne annotation on person means each birth record points to one person in the persons table. When Hibernate creates the database, it automatically adds a person_id foreign key column to birth_records.
-// FetchType.LAZY means the Person data isn't loaded from the database until you actually access it — more efficient than loading everything eagerly every time.
-// certificateNumber is unique — no two birth records can share the same certificate number, just like in real life.
-// filedBy stores the registrar's username as a string — same pattern as AuditLog — so the record survives even if that user account is later deleted.
 
 // BirthRecord is the official record of a person's birth.
 // It links directly to a Person — every birth record
@@ -36,7 +30,6 @@ public class BirthRecord {
     // -------------------------------------------------------
     @Column(nullable = false, unique = true)
     private String certificateNumber;
-
 
     @Column(nullable = false)
     private LocalDate dateOfBirth;
@@ -67,17 +60,13 @@ public class BirthRecord {
     @Column(nullable = false)
     private String filedBy;
 
-    @Column(nullable = false)
-    private String getFiledBy;
-
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
-    public BirthRecord() {
-    }
+    public BirthRecord() {}
 
     @PrePersist
     protected void onCreate() {
@@ -92,9 +81,7 @@ public class BirthRecord {
 
     // --- Getters & Setters ---
 
-    public Long getId() {
-        return id;
-    }
+    public Long getId() { return id; }
 
     public Person getPerson() {
         return person;

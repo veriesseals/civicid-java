@@ -60,58 +60,72 @@ public class BirthRecordRequest {
     }
 
     public String getStateOfBirth() {
+
         return stateOfBirth;
     }
 
     public void setStateOfBirth(String stateOfBirth) {
+
         this.stateOfBirth = stateOfBirth;
     }
 
     public String getCountryOfBirth() {
+
         return countryOfBirth;
     }
 
     public void setCountryOfBirth(String countryOfBirth) {
+
         this.countryOfBirth = countryOfBirth;
     }
 
     public String getMotherFirstName() {
+
         return motherFirstName;
     }
 
     public void setMotherFirstName(String motherFirstName) {
+
         this.motherFirstName = motherFirstName;
     }
 
     public String getMotherLastName() {
+
         return motherLastName;
     }
 
     public void setMotherLastName(String motherLastName) {
+
         this.motherLastName = motherLastName;
     }
 
     public String getFatherFirstName() {
+
         return fatherFirstName;
     }
 
     public void setFatherFirstName(String fatherFirstName) {
+
         this.fatherFirstName = fatherFirstName;
     }
 
     public String getFatherLastName() {
+
         return fatherLastName;
     }
 
     public void setFatherLastName(String fatherLastName) {
+
         this.fatherLastName = fatherLastName;
     }
 
     public String getBirthFacility() {
+
         return birthFacility;
     }
 
     public void setBirthFacility(String birthFacility) {
+
         this.birthFacility = birthFacility;
     }
 }

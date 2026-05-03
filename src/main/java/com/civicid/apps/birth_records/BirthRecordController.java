@@ -1,13 +1,11 @@
 package com.civicid.apps.birth_records;
 
-import com.civicid.apps.birth_records.BirthRecordRequest;
 import com.civicid.apps.birth_records.dto.BirthRecordRequest;
 import com.civicid.apps.birth_records.dto.BirthRecordResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -52,6 +50,63 @@ public class BirthRecordController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('SUPER_ADMIN', 'REGISTRAR', 'AUDITOR')")
+    public ResponseEntity<List<BirthRecordResponse>> getAllBirthRecords() {
+
+        List<BirthRecordResponse> records = birthRecordService.getAllBirthRecords()
+                .stream()
+                .map(BirthRecordResponse::from)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(responses);
+    }
+
+    // GET /api/birth-records/{id}
+    // Retrieve a single birth record by its ID.
+    // -------------------------------------------------------
+    @GetMapping("/{id}")
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN', 'REGISTRAR', 'AUDITOR')")
+    public ResponseEntity<BirthRecordResponse> getBirthRecordById(
+            @PathVariable Long id) {
+
+        return ResponseEntity.ok(
+                BirthRecordResponse.from(birthRecordService.getBirthRecordById(id))
+        );
+    }
+
+    // GET /api/birth-records/person/{personId}
+    // Retrieve the birth record for a specific person.
+    // Also logs a VIEW_BIRTH_RECORD audit entry automatically.
+    // -------------------------------------------------------
+    @GetMapping("/person/{personId}")
+    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN', 'REGISTRAR', 'AUDITOR')")
+    public ResponseEntity<List<BirthRecordResponse>> getBirthRecordsByPerson(
+            @PathVariable Long personId) {
+
+        List<BirthRecordResponse> responses = birthRecordService
+                .getBirthRecordsByPersonId(personId)
+                .stream()
+                .map(BirthRecordResponse::from)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(responses);
+    }
+
+    // Private helper — maps a BirthRecordRequest DTO to a BirthRecord entity.
+    // -------------------------------------------------------
+    private BirthRecord mapRequestToRecord(com.civicid.apps.birth_records.dto.BirthRecordRequest request) {
+        BirthRecord record = new BirthRecord();
+        record.setCertificateNumber(request.getCertificateNumber());
+        record.setDateOfBirth(request.getDateOfBirth());
+        record.setCityOfBirth(request.getCityOfBirth());
+        record.setStateOfBirth(request.getStateOfBirth());
+        record.setCountryOfBirth(request.getCountryOfBirth());
+        record.setMotherFirstName(request.getMotherFirstName());
+        record.setMotherLastName(request.getMotherLastName());
+        record.setFatherFirstName(request.getFatherFirstName());
+        record.setFatherLastName(request.getFatherLastName());
+        record.setBirthFacility(request.getBirthFacility());
+        return record;
+    }
 
 
 }
