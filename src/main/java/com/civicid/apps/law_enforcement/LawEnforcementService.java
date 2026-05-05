@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -85,6 +86,7 @@ public class LawEnforcementService {
 
     // Get all lookups performed by a specific officer (identified by username).
     // -------------------------------------------------------
+    @Transactional(readOnly = true)
     public List<VerificationRequest> getHistoryByOfficer(String username) {
         return verificationRequestRepository
                 .findByRequestedByOrderByRequestedAtDesc(username);
@@ -94,6 +96,7 @@ public class LawEnforcementService {
     // Officers can view their own history.
     // SUPER_ADMIN and AUDITOR can view anyone's.
     // -------------------------------------------------------
+    @Transactional(readOnly = true)
     public List<VerificationRequest> getHistoryByPerson(Long personId) {
 
         // Verify person exists first.
@@ -112,6 +115,7 @@ public class LawEnforcementService {
     // Get the full system-wide lookup history.
     // SUPER_ADMIN and AUDITOR only.
     // -------------------------------------------------------
+    @Transactional(readOnly = true)
     public List<VerificationRequest> getAllHistory() {
         return verificationRequestRepository.findAllByOrderByRequestedAtDesc();
     }

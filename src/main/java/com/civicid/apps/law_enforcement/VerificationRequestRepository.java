@@ -1,6 +1,8 @@
 package com.civicid.apps.law_enforcement;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 // Three queries that answer three very different oversight questions:
@@ -13,7 +15,8 @@ public interface VerificationRequestRepository extends JpaRepository<Verificatio
 
     List<VerificationRequest> findByRequestedByOrderByRequestedAtDesc(String requestedBy);
 
-    List<VerificationRequest> findByPersonIdOrderByRequestedAtDesc(Long personId);
+    @Query("SELECT vr FROM VerificationRequest vr WHERE vr.person.id = :personId ORDER BY vr.requestedAt DESC")
+    List<VerificationRequest> findByPersonIdOrderByRequestedAtDesc(@Param("personId") Long personId);
 
     List<VerificationRequest> findAllByOrderByRequestedAtDesc();
 }

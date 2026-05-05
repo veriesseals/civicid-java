@@ -41,9 +41,9 @@ public class PersonController {
     private final PersonService personService;
     private final AuditService auditService;
 
-    public PersonController(PersonService personService) {
+    public PersonController(PersonService personService, AuditService auditService) {
         this.personService = personService;
-        this.auditService = new AuditService(null);
+        this.auditService = auditService;
     }
 
     // POST /api/persons

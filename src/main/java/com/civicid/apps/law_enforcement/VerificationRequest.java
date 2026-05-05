@@ -1,6 +1,8 @@
 package com.civicid.apps.law_enforcement;
 
 import com.civicid.apps.persons.Person;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -26,6 +28,7 @@ public class VerificationRequest {
 
     // The person they looked up.
     // -------------------------------------------------------
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "person_id", nullable = false)
     private Person person;
@@ -66,6 +69,12 @@ public class VerificationRequest {
         this.requestedBy = requestedBy;
     }
 
+    @JsonProperty("personId")
+    public Long getPersonId() {
+        return person != null ? person.getId() : null;
+    }
+
+    @JsonIgnore
     public Person getPerson() {
 
         return person;

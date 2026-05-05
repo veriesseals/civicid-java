@@ -35,7 +35,7 @@ public class BirthRecordController {
     public ResponseEntity<BirthRecordResponse> createBirthRecord(
             @PathVariable Long personId,
             @Valid @RequestBody com.civicid.apps.birth_records.dto.BirthRecordRequest request) {
-        BirthRecord record = new BirthRecord();
+        BirthRecord record = mapRequestToRecord(request);
         BirthRecord saved = birthRecordService.createBirthRecord(personId, record);
 
         return ResponseEntity
@@ -64,7 +64,7 @@ public class BirthRecordController {
     // Retrieve a single birth record by its ID.
     // -------------------------------------------------------
     @GetMapping("/{id}")
-    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN', 'REGISTRAR', 'AUDITOR')")
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN', 'REGISTRAR', 'AUDITOR')")
     public ResponseEntity<BirthRecordResponse> getBirthRecordById(
             @PathVariable Long id) {
 
@@ -78,7 +78,7 @@ public class BirthRecordController {
     // Also logs a VIEW_BIRTH_RECORD audit entry automatically.
     // -------------------------------------------------------
     @GetMapping("/person/{personId}")
-    @PreAuthorize("hasAnyAuthority('SUPER_ADMIN', 'REGISTRAR', 'AUDITOR')")
+    @PreAuthorize("hasAnyRole('SUPER_ADMIN', 'REGISTRAR', 'AUDITOR')")
     public ResponseEntity<List<BirthRecordResponse>> getBirthRecordsByPerson(
             @PathVariable Long personId) {
 

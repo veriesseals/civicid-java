@@ -1,6 +1,8 @@
 package com.civicid.apps.birth_records;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,5 +36,13 @@ public interface BirthRecordRepository extends JpaRepository<BirthRecord, Long> 
     // Used to prevent duplicate birth records for the same person.
     // -------------------------------------------------------
     boolean existsByPersonId(Long personId);
+
+    // JOIN FETCH overrides used by getAllBirthRecords and getBirthRecordById
+    // to eagerly load the Person association and avoid LazyInitializationException.
+    @Query("SELECT br FROM BirthRecord br JOIN FETCH br.person")
+    List<BirthRecord> findAllWithPerson();
+
+    @Query("SELECT br FROM BirthRecord br JOIN FETCH br.person WHERE br.id = :id")
+    Optional<BirthRecord> findByIdWithPerson(@Param("id") Long id);
 }
 

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -68,8 +69,9 @@ public class BirthRecordService {
                     });
         }
 
-        // Stamp who filed this record using the current authenticated user.
+        // Link the person and stamp who filed this record.
         // -------------------------------------------------------
+        record.setPerson(person);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         record.setFiledBy(auth != null ? auth.getName() : "SYSTEM");
 
@@ -90,15 +92,17 @@ public class BirthRecordService {
     // Get all birth records in the system.
     // SUPER_ADMIN and AUDITOR use this.
     // -------------------------------------------------------
+    @Transactional(readOnly = true)
     public List<BirthRecord> getAllBirthRecords() {
-        return birthRecordRepository.findAll();
+        return birthRecordRepository.findAllWithPerson();
     }
 
     // Get a single birth record by its ID.
     // Throws 404 if not found.
     // -------------------------------------------------------
+    @Transactional(readOnly = true)
     public BirthRecord getBirthRecordById(Long id) {
-        return birthRecordRepository.findById(id)
+        return birthRecordRepository.findByIdWithPerson(id)
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND,
                         "Birth record not found with id: " + id
@@ -107,6 +111,7 @@ public class BirthRecordService {
 
     // Get the birth record for a specific person.
     // -------------------------------------------------------
+    @Transactional(readOnly = true)
     public List<BirthRecord> getBirthRecordsByPersonId(Long personId) {
 
         // Verify the person exists first — throws 404 if not.
