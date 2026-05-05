@@ -9,27 +9,11 @@ import java.util.List;
 // findAllByOrderByRequestedAtDesc — The full system-wide lookup history for supervisors and auditors. Every single LE lookup ever made, newest first.
 // All three are sorted newest-first automatically — the most recent activity is always at the top.
 
-public class VerificationRequestRepository {
+public interface VerificationRequestRepository extends JpaRepository<VerificationRequest, Long> {
 
-    // VerificationRequestRepository gives us database access
-    // for all law enforcement lookup records.
-    // -------------------------------------------------------
-    public interface VerificationRequestRepository extends JpaRepository<VerificationRequest, Long> {
+    List<VerificationRequest> findByRequestedByOrderByRequestedAtDesc(String requestedBy);
 
-        // Get all lookups performed by a specific officer.
-        // Officers can see their own history.
-        // Supervisors and auditors can see anyone's history.
-        // -------------------------------------------------------
-        List<VerificationRequest> findByRequestedByOrderByRequestedAtDesc(String requestedBy);
+    List<VerificationRequest> findByPersonIdOrderByRequestedAtDesc(Long personId);
 
-        // Get all lookups that targeted a specific person.
-        // Answers the question: "Who has looked up this person and why?"
-        // -------------------------------------------------------
-        List<VerificationRequest> findByPersonIdOrderByRequestedAtDesc(Long personId);
-
-        // Get all lookups in the system, newest first.
-        // SUPER_ADMIN and AUDITOR use this for oversight.
-        // -------------------------------------------------------
-        List<VerificationRequest> findAllByOrderByRequestedAtDesc();
-    }
+    List<VerificationRequest> findAllByOrderByRequestedAtDesc();
 }

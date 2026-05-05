@@ -16,6 +16,7 @@ import java.util.List;
 // the principle of minimum necessary access.
 // No browsing. No bulk data. Reason required. Everything logged.
 // -------------------------------------------------------
+@Service
 public class LawEnforcementService {
 
     private final VerificationRequestRepository verificationRequestRepository;
@@ -80,6 +81,13 @@ public class LawEnforcementService {
                 person.getDateOfBirth(),
                 person.getIsDeceased()
         );
+    }
+
+    // Get all lookups performed by a specific officer (identified by username).
+    // -------------------------------------------------------
+    public List<VerificationRequest> getHistoryByOfficer(String username) {
+        return verificationRequestRepository
+                .findByRequestedByOrderByRequestedAtDesc(username);
     }
 
     // Get lookup history for a specific officer.

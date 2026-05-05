@@ -22,7 +22,7 @@ public class VerificationRequest {
     // Stored as username string — survives user deletion.
     // -------------------------------------------------------
     @Column(nullable = false)
-    private String performedBy;
+    private String requestedBy;
 
     // The person they looked up.
     // -------------------------------------------------------
@@ -63,7 +63,7 @@ public class VerificationRequest {
 
     public void setRequestedBy(String requestedBy) {
 
-        this.getRequestedBy() = requestedBy;
+        this.requestedBy = requestedBy;
     }
 
     public Person getPerson() {
